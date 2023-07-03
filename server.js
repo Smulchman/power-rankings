@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 
-const getRosters = require('./controllers/api/sleeper');
+const { getRosters } = require('./controllers/api/sleeper');
 
 app.get('/', async (req, res) => {
     try {

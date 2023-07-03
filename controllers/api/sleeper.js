@@ -8,7 +8,7 @@ async function getRosters() {
       "https://api.sleeper.app/v1/league/859465702640300032/rosters"
     );
     // console.log(response.data);
-    return response;
+    return response.data;
   } catch (error) {
     console.error(error);
   }
