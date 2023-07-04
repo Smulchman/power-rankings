@@ -1,4 +1,5 @@
 const express = require('express');
+const sequelize = require("./config/connection");
 
 const app = express();
 
@@ -16,7 +17,7 @@ app.get('/', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-
-app.listen(PORT, () => {
-  console.log(`Server is listening on http://localhost:${PORT}`);
-});
+// { force: true } to drop and re-create tables on a sync
+sequelize.sync().then(() => {
+    app.listen(PORT, () => console.log(`Server is listening on http://localhost:${PORT}`));
+  });
