@@ -2,11 +2,11 @@ const express = require('express');
 
 const app = express();
 
-const { getRosters } = require('./controllers/api/sleeper');
+const { getRosters, getMatchups } = require('./controllers/api/sleeper');
 
 app.get('/', async (req, res) => {
     try {
-        const rosters = await getRosters();
+        const rosters = await getMatchups(5);
         console.log(rosters);
         res.send('Hello World');
     } catch (error) {
