@@ -32,7 +32,10 @@ Team.init(
         allowNull: false,
     },
     week_average: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.VIRTUAL,
+        get() {
+            return (this.week3 + this.week2 + this.week1) / 3;
+        }
     },
     perfect: {
         type: DataTypes.DECIMAL,
@@ -54,6 +57,11 @@ Team.init(
     },
   },
   {
+    hooks: {
+        beforeUpdate: async (newData) => {
+            // move week 2 to week 3 and week 1 to week 2 (in that order)
+        },
+    },
     sequelize,
     modelName: "team",
   }
