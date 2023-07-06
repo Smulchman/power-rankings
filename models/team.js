@@ -11,12 +11,13 @@ Team.init(
       primaryKey: true,
     },
     name: {
+      // team name
       type: DataTypes.STRING,
       allowNull: false,
     },
     // current week of the season
     week: {
-        type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
     },
     points_for: {
       // will set by just adding week score to previous total and returning.
@@ -25,11 +26,11 @@ Team.init(
       allowNull: false,
     },
     average: {
-        // if I have a 'week' field I can autocalculate it. seems necessary.
+      // if I have a 'week' field I can autocalculate it. seems necessary.
       type: DataTypes.VIRTUAL,
-        get() {
-            return (this.points_for / this.week);
-        }
+      get() {
+        return this.points_for / this.week;
+      },
     },
     week3: {
       // third most recent week
@@ -48,7 +49,7 @@ Team.init(
       // average of the last three weeks
       type: DataTypes.VIRTUAL,
       get() {
-        return ((this.week3 + this.week2 + this.week1) / 3);
+        return (this.week3 + this.week2 + this.week1) / 3;
       },
     },
     perfect: {
@@ -70,16 +71,23 @@ Team.init(
       // represents the calculated 'power' of the team across the season.
       type: DataTypes.VIRTUAL,
       get() {
-        const average = this.getDataValue('average');
+        const average = this.getDataValue("average");
         const week2 = this.week2;
         const week1 = this.week1;
         const perfect = this.perfect;
         const ceiling = this.ceiling;
         const floor = this.floor;
 
-        return ((average / 3.3333333) + (0.2 * week2) + (0.3 * week1) + (0.1 * perfect) + (ceiling / 12) + (floor / 12));
-      }
-    }
+        return (
+          average / 3.3333333 +
+          0.2 * week2 +
+          0.3 * week1 +
+          0.1 * perfect +
+          ceiling / 12 +
+          floor / 12
+        );
+      },
+    },
   },
   {
     hooks: {
