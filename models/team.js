@@ -66,7 +66,14 @@ Team.init(
     power: {
       type: DataTypes.VIRTUAL,
       get() {
-        // return algorithm.
+        const average = this.getDataValue('average');
+        const week2 = this.week2;
+        const week1 = this.week1;
+        const perfect = this.perfect;
+        const ceiling = this.ceiling;
+        const floor = this.floor;
+
+        return ((average / 3.3333333) + (0.2 * week2) + (0.3 * week1) + (0.1 * perfect) + (ceiling / 12) + (floor / 12));
       }
     },
     rank: {
@@ -75,9 +82,11 @@ Team.init(
   },
   {
     hooks: {
-      beforeUpdate: async (newData) => {
-        // move week 2 to week 3 and week 1 to week 2 (in that order)
-        // or, maybe I do that in external function to occur as larger update call
+      beforeUpdate: async (newData, options) => {
+        const oldData = await options.model.findByPk(newData.id);
+        newData.week3 = oldData.week2;
+        newData.week2 = oldData.week1;
+        return newData;
       },
     },
     sequelize,
