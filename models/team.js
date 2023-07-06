@@ -55,13 +55,11 @@ Team.init(
       // will have to compare incoming data with current ceiling and update if necessary.
       // I think I can do this with a hook.
       type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
     },
     floor: {
       // will have to compare incoming data with current floor and update if necessary.
       // I think I can do this with a hook.
       type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
     },
     power: {
       type: DataTypes.VIRTUAL,
@@ -83,6 +81,16 @@ Team.init(
         const oldData = await options.model.findByPk(newData.id);
         newData.week3 = oldData.week2;
         newData.week2 = oldData.week1;
+        return newData;
+      },
+      beforeUpdate: async (newData, options) => {
+        const oldData = await options.model.findByPk(newData.id);
+        if (newData.week1 > oldData.ceiling || oldData.ceiling === null) {
+          newData.ceiling = newData.week1;
+        }
+        if (newData.week1 < oldData.floor || oldData.floor === null) {
+          newData.floor = newData.week1;
+        }
         return newData;
       },
     },
