@@ -11,9 +11,11 @@ Player.init(
             primaryKey: true,
         },
         positions: {
+            // on weekly update will take an array and then concat into one long string?
             type: DataTypes.STRING,
             allowNull: false,
-        }
+        },
+        // position2? - maybe have secondary position to make it easier to adapt given code?
     },
     {
         sequelize,

@@ -20,44 +20,47 @@ Team.init(
     points_for: {
       // will set by just adding week score to previous total and returning.
       // use a hook I think?
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
     average: {
         // if I have a 'week' field I can autocalculate it. seems necessary.
-      type: DataTypes.DECIMAL,
+      type: DataTypes.VIRTUAL,
+        get() {
+            return (this.points_for / this.week);
+        }
     },
     week3: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
     },
     week2: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
     },
     week1: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
     week_average: {
       type: DataTypes.VIRTUAL,
       get() {
-        return (this.week3 + this.week2 + this.week1) / 3;
+        return ((this.week3 + this.week2 + this.week1) / 3);
       },
     },
     perfect: {
       // not a virtual. will have to calculate it independently and put it with update data.
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
     ceiling: {
       // will have to compare incoming data with current ceiling and update if necessary.
       // I think I can do this with a hook.
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
     floor: {
       // will have to compare incoming data with current floor and update if necessary.
       // I think I can do this with a hook.
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
     power: {
