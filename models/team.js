@@ -75,10 +75,7 @@ Team.init(
 
         return ((average / 3.3333333) + (0.2 * week2) + (0.3 * week1) + (0.1 * perfect) + (ceiling / 12) + (floor / 12));
       }
-    },
-    rank: {
-      type: DataTypes.INTEGER,
-    },
+    }
   },
   {
     hooks: {
