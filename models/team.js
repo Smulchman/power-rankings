@@ -14,6 +14,7 @@ Team.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    // current week of the season
     week: {
         type: DataTypes.INTEGER,
     },
@@ -31,37 +32,42 @@ Team.init(
         }
     },
     week3: {
+      // third most recent week
       type: DataTypes.DECIMAL(10, 2),
     },
     week2: {
+      // second most recent week
       type: DataTypes.DECIMAL(10, 2),
     },
     week1: {
+      // most recent week
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
     week_average: {
+      // average of the last three weeks
       type: DataTypes.VIRTUAL,
       get() {
         return ((this.week3 + this.week2 + this.week1) / 3);
       },
     },
     perfect: {
-      // not a virtual. will have to calculate it independently and put it with update data.
+      // needs to be calculated by function that calls update.
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
     ceiling: {
-      // will have to compare incoming data with current ceiling and update if necessary.
-      // I think I can do this with a hook.
+      // highest single week score across season.
+      // automatically determined by hook.
       type: DataTypes.DECIMAL(10, 2),
     },
     floor: {
-      // will have to compare incoming data with current floor and update if necessary.
-      // I think I can do this with a hook.
+      // lowest single week score across season.
+      // automatically determined by hook.
       type: DataTypes.DECIMAL(10, 2),
     },
     power: {
+      // represents the calculated 'power' of the team across the season.
       type: DataTypes.VIRTUAL,
       get() {
         const average = this.getDataValue('average');
@@ -77,17 +83,20 @@ Team.init(
   },
   {
     hooks: {
+      // moves the week values back one week every week
       beforeUpdate: async (newData, options) => {
         const oldData = await options.model.findByPk(newData.id);
         newData.week3 = oldData.week2;
         newData.week2 = oldData.week1;
         return newData;
       },
+      // checks the new week score against the ceiling and floor and updates them if necessary
       beforeUpdate: async (newData, options) => {
         const oldData = await options.model.findByPk(newData.id);
         if (newData.week1 > oldData.ceiling || oldData.ceiling === null) {
           newData.ceiling = newData.week1;
         }
+        // not using else if so that initial values can be set for both ceiling and floor
         if (newData.week1 < oldData.floor || oldData.floor === null) {
           newData.floor = newData.week1;
         }
