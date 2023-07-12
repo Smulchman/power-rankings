@@ -3,11 +3,11 @@ const sequelize = require("./config/connection");
 
 const app = express();
 
-const { getRosters, getMatchups } = require('./controllers/api/sleeper');
+const { getRosters, getMatchups, getPlayers } = require('./controllers/api/sleeper');
 
 app.get('/', async (req, res) => {
     try {
-        const rosters = await getMatchups(5);
+        const rosters = await getPlayers();
         console.log(rosters);
         res.send('Hello World');
     } catch (error) {
