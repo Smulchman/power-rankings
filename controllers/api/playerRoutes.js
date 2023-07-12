@@ -1,12 +1,10 @@
-const router = require("express").Router();
-const { getPlayers } = require("../../controllers/api/sleeper");
+const { getPlayers } = require("./sleeper");
 const Player = require("../../models/player");
 const axios = require("axios");
 
 async function createPlayers() {
   try {
-    const response = await getPlayers;
-    const data = response.data;
+    const data = await getPlayers();
 
     for (const key in data) {
       if (Object.hasOwnProperty.call(data, key)) {
@@ -26,4 +24,4 @@ async function createPlayers() {
   }
 };
 
-module.exports = createPlayers();
+module.exports = { createPlayers };
