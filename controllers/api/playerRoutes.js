@@ -4,6 +4,8 @@ const axios = require("axios");
 
 async function createPlayers() {
   try {
+    await Player.deleteMany();
+    
     const data = await getPlayers();
 
     for (const key in data) {
