@@ -1,11 +1,11 @@
 const { getPlayers } = require("./sleeper");
-const Player = require("../../models/player");
+const Player = require("../../models/Player");
 const axios = require("axios");
 
 async function createPlayers() {
   try {
-    await Player.deleteMany();
-    
+    await Player.destroy({ where: {} });
+
     const data = await getPlayers();
 
     for (const key in data) {
@@ -16,7 +16,7 @@ async function createPlayers() {
         const { player_id, position } = item;
 
         // move that info into the database
-        await Player.create({ player_id, position });
+        await Player.create({ id: player_id, positions: position });
       }
     }
 

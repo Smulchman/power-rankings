@@ -9,10 +9,13 @@ const {
   getPlayers,
 } = require("./controllers/api/sleeper");
 
+const { createPlayers } = require("./controllers/api/playerRoutes");
+
 app.get("/", async (req, res) => {
   try {
     // const players = await getPlayers();
     // console.log(players);
+    createPlayers();
     res.send("Hello World");
   } catch (error) {
     console.error(error);
