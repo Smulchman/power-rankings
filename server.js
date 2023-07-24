@@ -7,15 +7,14 @@ const {
   getRosters,
   getMatchups,
   getPlayers,
-} = require("./controllers/api/sleeper");
-
-const { createPlayers } = require("./controllers/api/playerRoutes");
+  createPlayers
+} = require("./controllers/api/index");
 
 app.get("/", async (req, res) => {
   try {
     // const players = await getPlayers();
     // console.log(players);
-    createPlayers();
+    // createPlayers();
     res.send("Hello World");
   } catch (error) {
     console.error(error);
