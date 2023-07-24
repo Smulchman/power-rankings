@@ -7,17 +7,17 @@ async function createPlayers() {
     await Player.destroy({ where: {} });
 
     const data = await getPlayers();
+    const filteredData = data.filter((item) => {
+      // Check if the position is not null and is a string
+      return item.position !== null && typeof item.position === "string";
+    });
 
-    for (const key in data) {
-      if (Object.hasOwnProperty.call(data, key)) {
-        const item = data[key];
+    for (const item of filteredData) {
+      // grab player information
+      const { player_id, position } = item;
 
-        // grab player information
-        const { player_id, position } = item;
-
-        // move that info into the database
-        await Player.create({ id: player_id, positions: position || "Error" });
-      }
+      // move that info into the database
+      await Player.create({ id: player_id, positions: position });
     }
 
     console.log("Data stored successfully!");
