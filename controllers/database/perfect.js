@@ -1,7 +1,7 @@
 const { Player, Team } = require("../../models/index.js");
 const getMatchups = require("../../api/sleeper.js");
 
-var week = 5; // this is intended to be automatically set depending on what the week of the NFL season is.
+var week = 5; // this is intended to be automatically set depending on what the week of the NFL season is
 let matchups = getMatchups(week);
 
 // Function to get the number of slots for a given position on a roster
@@ -16,6 +16,9 @@ function getPlayerSlots(position) {
     FLEX: 1,
   };
 
+  //   Set positions eligible to play in the FLEX slot
+  const flexCandidates = ["RB", "WR", "TE"];
+
   return positionSlots[position] || 0; // Default to 0 if position is not found in the object
 }
 
@@ -29,7 +32,7 @@ const getPerfectLineup = async (teamPlayers) => {
     const player = await Player.findByPk(playerId);
     if (!player) continue; // Skip players not found in the database
 
-    // Group players by their positions
+    // Take player scores for a given position and store into an array named after that position stored within the larger 'positions' object
     if (!positions[player.position]) {
       positions[player.position] = [playerPoints];
     } else {
@@ -47,8 +50,7 @@ const getPerfectLineup = async (teamPlayers) => {
     totalScore += topScores.reduce((sum, score) => sum + score, 0);
   }
 
-  // Consider the 'FLEX' position as an additional slot for the highest-scoring player from RB, WR, or TE positions
-  const flexCandidates = ["RB", "WR", "TE"];
+  // Take eligible flex players and put them into an array together then sort it
   const flexTopScores = [];
   const flexSlots = getPlayerSlots("FLEX");
   for (const position of flexCandidates) {
@@ -59,16 +61,17 @@ const getPerfectLineup = async (teamPlayers) => {
     }
   }
 
-  // Sort and take the highest score from the flexTopScores array
+  // Sort and take the highest scores from the flexTopScores array
   flexTopScores.sort((a, b) => b - a);
   const flexScore = flexTopScores
     .slice(0, flexSlots)
     .reduce((sum, score) => sum + score, 0);
 
-  // Add the highest FLEX score to the total score
+  // Add the FLEX score to the total score
   totalScore += flexScore;
 
   return totalScore;
 };
 
-// now loop through the matchup data to run getPerfectLineup on each team and then store the returned value in the database
+// now loop through the matchup data to run getPerfectLineup on each team 
+// then store the returned value in the database

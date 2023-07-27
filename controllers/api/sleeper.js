@@ -1,5 +1,4 @@
 // API helper for Sleeper API
-
 const axios = require("axios");
 
 async function getRosters() {

@@ -10,7 +10,7 @@ Player.init(
       allowNull: false,
       primaryKey: true,
     },
-    positions: {
+    position: {
       // on weekly update will take an array and then concat into one long string?
       type: DataTypes.STRING,
       allowNull: false,

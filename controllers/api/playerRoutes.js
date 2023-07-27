@@ -17,7 +17,7 @@ async function createPlayers() {
       const { player_id, position } = item;
 
       // move that info into the database
-      await Player.create({ id: player_id, positions: position });
+      await Player.create({ id: player_id, position: position });
     }
 
     console.log("Data stored successfully!");
