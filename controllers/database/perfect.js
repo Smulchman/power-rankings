@@ -66,7 +66,9 @@ const getPerfectLineup = async (teamPlayers) => {
     .reduce((sum, score) => sum + score, 0);
 
   // Add the highest FLEX score to the total score
-  totalScore += flexPoints;
+  totalScore += flexScore;
 
   return totalScore;
 };
+
+// now loop through the matchup data to run getPerfectLineup on each team and then store the returned value in the database
