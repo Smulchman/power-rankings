@@ -73,5 +73,4 @@ const getPerfectLineup = async (teamPlayers) => {
   return totalScore;
 };
 
-// now loop through the matchup data to run getPerfectLineup on each team 
-// then store the returned value in the database
+module.exports = getPerfectLineup;

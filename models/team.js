@@ -13,7 +13,7 @@ Team.init(
     name: {
       // team name
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     // current week of the season
     week: {
