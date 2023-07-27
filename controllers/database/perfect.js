@@ -1,8 +1,4 @@
 const { Player, Team } = require("../../models/index.js");
-const getMatchups = require("../../api/sleeper.js");
-
-var week = 5; // this is intended to be automatically set depending on what the week of the NFL season is
-let matchups = getMatchups(week);
 
 // Function to get the number of slots for a given position on a roster
 function getPlayerSlots(position) {
