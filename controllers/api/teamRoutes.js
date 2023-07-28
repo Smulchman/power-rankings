@@ -1,4 +1,5 @@
-const Team = require('../../models/team');
+const Team = require('../../models/Team');
+const Player = require('../../models/Player');
 const axios = require('axios');
 const getPerfectLineup = require('../database/perfect');
 
@@ -24,6 +25,8 @@ const createOrUpdateTeam = async (teamData) => {
           points_for: teamData.points,
           week1: teamData.points,
           perfect: await getPerfectLineup(teamData.players, teamData.players_points),
+          ceiling: teamData.points,
+          floor: teamData.points,
         });
   
         console.log(`Team with rosterId ${teamData.roster_id} created successfully.`);

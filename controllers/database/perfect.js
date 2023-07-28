@@ -1,4 +1,4 @@
-const { Player } = require("../../models/index.js");
+const Player = require("../../models/Player.js");
 
 // Function to get the number of slots for a given position on a roster
 function getPlayerSlots(position) {
@@ -12,15 +12,15 @@ function getPlayerSlots(position) {
     FLEX: 1,
   };
 
-  //   Set positions eligible to play in the FLEX slot
-  const flexCandidates = ["RB", "WR", "TE"];
-
   return positionSlots[position] || 0; // Default to 0 if position is not found in the object
 }
 
 const getPerfectLineup = async (teamPlayers, playersPoints) => {
   const positions = {}; // Object to store the highest scoring players for each position
   let totalScore = 0; // Variable to keep track of the total score
+
+  //   Set positions eligible to play in the FLEX slot
+  const flexCandidates = ["RB", "WR", "TE"];
 
   for (const playerId of teamPlayers) {
     const points = playersPoints[playerId];
@@ -67,6 +67,7 @@ const getPerfectLineup = async (teamPlayers, playersPoints) => {
   // Add the FLEX score to the total score
   totalScore += flexScore;
 
+  console.log(totalScore);
   return totalScore;
 };
 

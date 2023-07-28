@@ -16,8 +16,8 @@ app.get("/", async (req, res) => {
   try {
     // const players = await getPlayers();
     // console.log(players);
-    createPlayers();
-    // updateDatabase();
+    // createPlayers();
+    updateDatabase();
     res.send("Hello World");
   } catch (error) {
     console.error(error);

@@ -3,7 +3,7 @@ const week = 3;
 
 const updateDatabase = async () => {
     try {
-        await createPlayers();
+        // await createPlayers();
         const matchups = await getMatchups(week);
         for (const team of matchups) {
             await createOrUpdateTeam(team);
