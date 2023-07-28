@@ -10,11 +10,14 @@ const {
   createPlayers
 } = require("./controllers/api/index");
 
+const { updateDatabase } = require("./controllers/runUpdate");
+
 app.get("/", async (req, res) => {
   try {
     // const players = await getPlayers();
     // console.log(players);
     // createPlayers();
+    updateDatabase();
     res.send("Hello World");
   } catch (error) {
     console.error(error);
@@ -24,7 +27,7 @@ app.get("/", async (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 // { force: true } to drop and re-create tables on a sync
-sequelize.sync().then(() => {
+sequelize.sync({ force: true }).then(() => {
   app.listen(PORT, () =>
     console.log(`Server is listening on http://localhost:${PORT}`)
   );

@@ -15,13 +15,12 @@ Team.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    // current week of the season
     week: {
+      // current week of the season
       type: DataTypes.INTEGER,
     },
     points_for: {
       // will set by just adding week score to previous total and returning.
-      // use a hook I think?
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },

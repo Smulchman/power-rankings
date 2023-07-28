@@ -14,4 +14,4 @@ const updateDatabase = async () => {
     }
 }
 
-module.exports = updateDatabase;
+module.exports = { updateDatabase };
