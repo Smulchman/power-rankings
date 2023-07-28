@@ -12,7 +12,7 @@ const createOrUpdateTeam = async (teamData) => {
         team.week = (team.week+1);
         team.points_for = (team.points_for + teamData.points);
         team.week1 = teamData.points;
-        team.perfect = await getPerfectLineup(teamData);
+        team.perfect = await getPerfectLineup(teamData.players, teamData.players_points);
         await team.save();
   
         console.log(`Team with rosterId ${teamData.roster_id} updated successfully.`);
@@ -23,7 +23,7 @@ const createOrUpdateTeam = async (teamData) => {
           week: 1,
           points_for: teamData.points,
           week1: teamData.points,
-          perfect: await getPerfectLineup(teamData),
+          perfect: await getPerfectLineup(teamData.players, teamData.players_points),
         });
   
         console.log(`Team with rosterId ${teamData.roster_id} created successfully.`);

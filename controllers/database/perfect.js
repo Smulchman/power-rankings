@@ -18,21 +18,22 @@ function getPlayerSlots(position) {
   return positionSlots[position] || 0; // Default to 0 if position is not found in the object
 }
 
-const getPerfectLineup = async (teamPlayers) => {
+const getPerfectLineup = async (teamPlayers, playersPoints) => {
   const positions = {}; // Object to store the highest scoring players for each position
+  let totalScore = 0; // Variable to keep track of the total score
 
   for (const playerId of teamPlayers) {
-    const playerPoints = players_points[playerId];
-    if (!playerPoints) continue; // Skip players not found in the players_points object
+    const points = playersPoints[playerId];
+    if (!points) continue; // Skip players not found in the playersPoints object
 
     const player = await Player.findByPk(playerId);
     if (!player) continue; // Skip players not found in the database
 
     // Take player scores for a given position and store into an array named after that position stored within the larger 'positions' object
     if (!positions[player.position]) {
-      positions[player.position] = [playerPoints];
+      positions[player.position] = [points];
     } else {
-      positions[player.position].push(playerPoints);
+      positions[player.position].push(points);
     }
   }
 
