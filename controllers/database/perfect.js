@@ -1,4 +1,4 @@
-const { Player, Team } = require("../../models/index.js");
+const { Player } = require("../../models/index.js");
 
 // Function to get the number of slots for a given position on a roster
 function getPlayerSlots(position) {

@@ -1,4 +1,3 @@
-const { getMatchups } = require('./sleeper');
 const Team = require('../../models/team');
 const axios = require('axios');
 const getPerfectLineup = require('../database/perfect');
