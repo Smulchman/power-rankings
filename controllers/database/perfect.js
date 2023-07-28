@@ -67,7 +67,7 @@ const getPerfectLineup = async (teamPlayers, playersPoints) => {
   // Add the FLEX score to the total score
   totalScore += flexScore;
 
-  console.log(totalScore);
+  // console.log(totalScore.toFixed(2));
   return totalScore;
 };
 
