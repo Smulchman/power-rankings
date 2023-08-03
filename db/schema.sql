@@ -1,0 +1,5 @@
+DROP DATABASE IF EXISTS loec_db;
+
+CREATE DATABASE loec_db;
+
+USE loec_db;

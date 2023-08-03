@@ -1,22 +1,34 @@
-const express = require('express');
+const express = require("express");
+const sequelize = require("./config/connection");
 
 const app = express();
 
-const { getRosters, getMatchups } = require('./controllers/api/sleeper');
+const {
+  getRosters,
+  getMatchups,
+  getPlayers,
+  createPlayers
+} = require("./controllers/api/index");
 
-app.get('/', async (req, res) => {
-    try {
-        const rosters = await getMatchups(5);
-        console.log(rosters);
-        res.send('Hello World');
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
-    }
+const { updateDatabase } = require("./controllers/runUpdate");
+
+app.get("/", async (req, res) => {
+  try {
+    // const players = await getPlayers();
+    // console.log(players);
+    // createPlayers();
+    updateDatabase();
+    res.send("Hello World");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 const PORT = process.env.PORT || 3001;
-
-app.listen(PORT, () => {
-  console.log(`Server is listening on http://localhost:${PORT}`);
+// { force: true } to drop and re-create tables on a sync
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () =>
+    console.log(`Server is listening on http://localhost:${PORT}`)
+  );
 });
