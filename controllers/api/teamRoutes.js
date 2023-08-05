@@ -3,6 +3,17 @@ const Player = require('../../models/Player');
 const axios = require('axios');
 const getPerfectLineup = require('../database/perfect');
 
+// Fetch all teams from the database
+const getTeams = async () => {
+  try {
+    const teams = await Team.findAll();
+    return teams;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return [];
+  }
+};
+
 const createOrUpdateTeam = async (teamData) => {
     try {
       // Find the team in the database using the rosterId
@@ -36,4 +47,4 @@ const createOrUpdateTeam = async (teamData) => {
     }
   };
 
-  module.exports = { createOrUpdateTeam };
+  module.exports = { getTeams, createOrUpdateTeam };
