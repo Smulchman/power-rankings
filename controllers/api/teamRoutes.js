@@ -14,6 +14,7 @@ const getTeams = async () => {
   }
 };
 
+// populate table with power ranking components
 const createOrUpdateTeam = async (teamData) => {
     try {
       // Find the team in the database using the rosterId
