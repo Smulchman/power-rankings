@@ -6,7 +6,8 @@ const {
   getRosters,
   getMatchups,
   getPlayers,
-  createPlayers
+  createPlayers,
+  getTeams
 } = require("./controllers/api/index");
 const { updateDatabase } = require("./controllers/runUpdate");
 
@@ -19,8 +20,9 @@ app.get("/", async (req, res) => {
     // const players = await getPlayers();
     // console.log(players);
     // createPlayers();
-    updateDatabase();
-    res.send("Hello World");
+    // updateDatabase();
+    const teams = await getTeams();
+    res.render("table", { teams });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
