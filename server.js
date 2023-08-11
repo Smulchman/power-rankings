@@ -12,7 +12,9 @@ const {
 const { updateDatabase } = require("./controllers/runUpdate");
 
 const app = express();
-app.engine("handlebars", exphbs());
+
+const hbs = exphbs.create({});
+app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
 app.get("/", async (req, res) => {
