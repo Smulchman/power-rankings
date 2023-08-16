@@ -1,6 +1,7 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const sequelize = require("./config/connection");
+const path = require('path');
 
 const {
   getRosters,
@@ -12,8 +13,9 @@ const {
 const { updateDatabase } = require("./controllers/runUpdate");
 
 const app = express();
-
 const hbs = exphbs.create({});
+
+app.use(express.static(path.join(__dirname)));
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 

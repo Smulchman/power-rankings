@@ -6,6 +6,7 @@ class Team extends Model {}
 Team.init(
   {
     id: {
+      // primary key - corresponds to team id from sleeper
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
