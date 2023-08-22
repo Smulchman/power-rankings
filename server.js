@@ -15,7 +15,7 @@ const { updateDatabase } = require("./controllers/runUpdate");
 const app = express();
 const hbs = exphbs.create({});
 
-// app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, "public")));
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
