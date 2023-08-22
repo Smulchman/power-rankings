@@ -15,7 +15,7 @@ const { updateDatabase } = require("./controllers/runUpdate");
 const app = express();
 const hbs = exphbs.create({});
 
-app.use(express.static(path.join(__dirname)));
+// app.use(express.static(path.join(__dirname)));
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
@@ -25,6 +25,8 @@ app.get("/", async (req, res) => {
     // console.log(players);
     // createPlayers();
     // updateDatabase();
+    // const matchups = await getMatchups()
+    // console.log(matchups)
     const teams = await getTeams();
     res.render("table", { teams });
   } catch (error) {
